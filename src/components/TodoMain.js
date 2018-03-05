@@ -52,6 +52,23 @@ class TodoMain extends Component {
         });
     };
 
+    deleteTodo = (id) => {
+        let tempTodosList = this.state.todosList.filter(el => el.id !== id)
+        localStorage.setItem('todos', JSON.stringify(tempTodosList));
+        this.setState({todosList: tempTodosList});
+    };
+
+    toggleTodoStatus = (id) => {
+        let tempTodosList = this.state.todosList.map(el =>{
+            if (el.id === id) {
+                el.status = !el.status
+            }
+            return el
+        })
+        localStorage.setItem('todos', JSON.stringify(tempTodosList));
+        this.setState({todosList: tempTodosList});
+    };
+
 
     handleTodoName = (e) => this.setState({todoName: e.target.value});
     handleTodoPriority = (e) => this.setState({todoPriority: e.target.value});
@@ -107,7 +124,9 @@ class TodoMain extends Component {
                                                         {el.name}
                                                     </td>
                                                     <td>
-                                                        {el.priority}
+                                                        {
+                                                            el.priority === "0" ? "Low" : el.priority === "1" ? "Medium" : "High"
+                                                        }
                                                     </td>
                                                     <td>
                                                         <Checkbox
@@ -119,7 +138,8 @@ class TodoMain extends Component {
                                                     <td>
                                                         <Glyphicon
                                                             glyph="trash"
-                                                            onChange={()=>{this.deleteTodo(el.id)}}
+                                                            style={{cursor:'pointer'}}
+                                                            onClick={()=>{this.deleteTodo(el.id)}}
                                                         />
                                                     </td>
                                                 </tr>
