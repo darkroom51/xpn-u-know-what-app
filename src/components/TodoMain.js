@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
-import {Grid, Row, Col, Panel, Alert, Table, Glyphicon, Checkbox} from 'react-bootstrap'
-
+import {Grid, Row, Col, Panel, Alert, Glyphicon} from 'react-bootstrap'
 import TodoAdd from './TodoAdd'
+import TodoList from './TodoList'
+
 
 class TodoMain extends Component {
     state = {
@@ -70,9 +71,9 @@ class TodoMain extends Component {
         this.setState({todosList: tempTodosList});
     };
 
-
     handleTodoName = (e) => this.setState({todoName: e.target.value});
     handleTodoPriority = (e) => this.setState({todoPriority: e.target.value});
+
 
     render() {
         return (
@@ -82,6 +83,7 @@ class TodoMain extends Component {
                         <Panel>
                             <Panel.Heading style={{textAlign: 'center', fontSize: 20}}>Todo List</Panel.Heading>
                             <Panel.Body>
+
                                 {this.state.todoNameErr ? <Alert>{this.state.todoNameErr}</Alert> : null}
 
                                 <TodoAdd
@@ -91,50 +93,11 @@ class TodoMain extends Component {
                                     addTodo={this.addTodo}
                                 />
 
-
-                                <Table hover>
-                                    <thead>
-                                    <tr style={{backgroundColor: '#444', color: 'white'}}>
-                                        <th>Task Name</th>
-                                        <th>Priority</th>
-                                        <th>Status</th>
-                                        <th>Del</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    {
-                                        this.state.todosList
-                                        &&
-                                        this.state.todosList
-                                            .map((el) => (
-                                                <tr key={el.id}>
-                                                    <td>
-                                                        {el.name}
-                                                    </td>
-                                                    <td>
-                                                        {
-                                                            el.priority === "0" ? "Low" : el.priority === "1" ? "Medium" : "High"
-                                                        }
-                                                    </td>
-                                                    <td>
-                                                        <Checkbox
-                                                            checked={el.status}
-                                                            onChange={()=>{this.toggleTodoStatus(el.id)}}
-                                                        >
-                                                        </Checkbox>
-                                                    </td>
-                                                    <td>
-                                                        <Glyphicon
-                                                            glyph="trash"
-                                                            style={{cursor:'pointer'}}
-                                                            onClick={()=>{this.deleteTodo(el.id)}}
-                                                        />
-                                                    </td>
-                                                </tr>
-                                            ))
-                                    }
-                                    </tbody>
-                                </Table>
+                                <TodoList
+                                    state={this.state}
+                                    toggleTodoStatus={this.toggleTodoStatus}
+                                    deleteTodo={this.deleteTodo}
+                                />
 
                             </Panel.Body>
                             <Panel.Footer style={{textAlign: 'center', fontSize: 10}}>
