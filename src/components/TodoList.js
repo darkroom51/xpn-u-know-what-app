@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import {Table, Glyphicon, Checkbox} from 'react-bootstrap'
-
+import {Table} from 'react-bootstrap'
+import TodoTask from './TodoTask'
 
 class TodoList extends Component {
     render() {
@@ -20,34 +20,12 @@ class TodoList extends Component {
                     &&
                     this.props.state.todosList
                         .map((el) => (
-                            <tr key={el.id}>
-                                <td>
-                                    {el.name}
-                                </td>
-                                <td>
-                                    {
-                                        el.priority === "0" ? "Low" : el.priority === "1" ? "Medium" : "High"
-                                    }
-                                </td>
-                                <td>
-                                    <Checkbox
-                                        checked={el.status}
-                                        onChange={() => {
-                                            this.props.toggleTodoStatus(el.id)
-                                        }}
-                                    >
-                                    </Checkbox>
-                                </td>
-                                <td>
-                                    <Glyphicon
-                                        glyph="trash"
-                                        style={{cursor: 'pointer'}}
-                                        onClick={() => {
-                                            this.props.deleteTodo(el.id)
-                                        }}
-                                    />
-                                </td>
-                            </tr>
+                            <TodoTask
+                                key={el.id}
+                                el={el}
+                                toggleTodoStatus={this.props.toggleTodoStatus}
+                                deleteTodo={this.props.deleteTodo}
+                            />
                         ))
                 }
                 </tbody>
