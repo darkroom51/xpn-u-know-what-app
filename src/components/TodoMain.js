@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
-import {Grid, Row, Col, Button, Panel, Alert, ControlLabel, FormControl, Table, Glyphicon, Checkbox} from 'react-bootstrap'
+import {Grid, Row, Col, Panel, Alert, Table, Glyphicon, Checkbox} from 'react-bootstrap'
 
+import TodoAdd from './TodoAdd'
 
 class TodoMain extends Component {
     state = {
@@ -83,26 +84,13 @@ class TodoMain extends Component {
                             <Panel.Body>
                                 {this.state.todoNameErr ? <Alert>{this.state.todoNameErr}</Alert> : null}
 
-                                <div>
-                                    <ControlLabel>Task Name</ControlLabel>
-                                    <FormControl
-                                        type="text"
-                                        placeholder="New task ..."
-                                        value={this.state.todoName}
-                                        onChange={this.handleTodoName}
-                                    />
-                                    <ControlLabel>Priority</ControlLabel>
-                                    <FormControl
-                                        componentClass="select"
-                                        placeholder="select"
-                                        onChange={this.handleTodoPriority}
-                                    >
-                                        <option value="0">Low</option>
-                                        <option value="1">Medium</option>
-                                        <option value="2">High</option>
-                                    </FormControl>
-                                    <Button bsStyle="primary" onClick={this.addTodo}>Add Task</Button>
-                                </div>
+                                <TodoAdd
+                                    state={this.state}
+                                    handleTodoName={this.handleTodoName}
+                                    handleTodoPriority={this.handleTodoPriority}
+                                    addTodo={this.addTodo}
+                                />
+
 
                                 <Table hover>
                                     <thead>
