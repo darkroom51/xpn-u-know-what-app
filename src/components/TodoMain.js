@@ -71,6 +71,39 @@ class TodoMain extends Component {
         this.setState({todosList: tempTodosList});
     };
 
+    sortTodo = (column, orderDesc) => {
+        let todosTemp = []
+        todosTemp = todosTemp.concat(this.state.todosList);
+        switch (column) {
+            case 'name': {
+                if (orderDesc)
+                    todosTemp.sort((a, b) => {return b.name.localeCompare(a.name)})
+                else
+                    todosTemp.sort((a, b) => {return a.name.localeCompare(b.name)})
+                break;
+            }
+            case 'priority': {
+                if (orderDesc)
+                    todosTemp.sort((a, b) => {return +b.priority - +a.priority})
+                else
+                    todosTemp.sort((a, b) => {return +a.priority - +b.priority})
+                break;
+            }
+            case 'status': {
+                if (orderDesc)
+                    todosTemp.sort((a, b) => {return b.status - a.status})
+                else
+                    todosTemp.sort((a, b) => {return a.status - b.status})
+                break;
+            }
+            default: {
+                todosTemp.sort((a, b) => {return a.id - b.id})
+                break;
+            }
+        }
+        this.setState({todosList: todosTemp});
+    }
+
     handleTodoName = (e) => this.setState({todoName: e.target.value});
     handleTodoPriority = (e) => this.setState({todoPriority: e.target.value});
 
@@ -94,9 +127,10 @@ class TodoMain extends Component {
                                 />
 
                                 <TodoList
-                                    state={this.state}
+                                    todosList={this.state.todosList}
                                     toggleTodoStatus={this.toggleTodoStatus}
                                     deleteTodo={this.deleteTodo}
+                                    sortTodo={this.sortTodo}
                                 />
 
                             </Panel.Body>
