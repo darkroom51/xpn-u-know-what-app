@@ -16,7 +16,6 @@ class TodoAdd extends Component {
                 <ControlLabel>Priority</ControlLabel>
                 <FormControl
                     componentClass="select"
-                    placeholder="select"
                     onChange={this.props.handleTodoPriority}
                 >
                     <option value="0">Low</option>

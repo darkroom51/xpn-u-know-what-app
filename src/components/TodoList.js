@@ -4,7 +4,7 @@ import TodoTask from './TodoTask'
 
 
 const SortIcon = (props) => (
-    props.sortDesc
+    props.order
         ?
         <Glyphicon glyph={"sort-by-attributes"} />
         :
@@ -17,45 +17,45 @@ class TodoList extends Component {
         sortByName: false,
         sortByPriority: false,
         sortByStatus: false,
-        sortDesc: false
+        order: false
     }
 
 
     handleSortByName = () => {
-        this.props.sortTodo('name',this.state.sortDesc)
-        this.setState({sortByName:true, sortByPriority:false, sortByStatus:false, sortDesc:!this.state.sortDesc})
+        this.props.sortTodo('name',this.state.order)
+        this.setState({sortByName:true, sortByPriority:false, sortByStatus:false, order:!this.state.order})
     }
 
     handleSortByPriority = () => {
-        this.props.sortTodo('priority',this.state.sortDesc)
-        this.setState({sortByName:false, sortByPriority:true, sortByStatus:false, sortDesc:!this.state.sortDesc})
+        this.props.sortTodo('priority',this.state.order)
+        this.setState({sortByName:false, sortByPriority:true, sortByStatus:false, order:!this.state.order})
     }
 
     handleSortByStatus = () => {
-        this.props.sortTodo('status',this.state.sortDesc)
-        this.setState({sortByName:false, sortByPriority:false, sortByStatus:true, sortDesc:!this.state.sortDesc})
+        this.props.sortTodo('status',this.state.order)
+        this.setState({sortByName:false, sortByPriority:false, sortByStatus:true, order:!this.state.order})
     }
 
     handleSortReset = () => {
-        this.props.sortTodo('reset',this.state.sortDesc)
-        this.setState({sortByName:false, sortByPriority:false, sortByStatus:false, sortDesc:false})
+        this.props.sortTodo('reset',this.state.order)
+        this.setState({sortByName:false, sortByPriority:false, sortByStatus:false, order:false})
     }
 
 
 
     render() {
         return (
-            <Table hover>
+            <Table hover style={{marginTop:20}}>
                 <thead>
-                <tr style={{backgroundColor: '#444', color: 'white'}}>
+                <tr style={{backgroundColor: '#444', color: '#ddd', cursor:'pointer'}}>
                     <th onClick={this.handleSortByName}>
-                        Task Name &nbsp; {this.state.sortByName ? <SortIcon sortDesc={this.state.sortDesc} /> : null}
+                        Task Name &nbsp; {this.state.sortByName ? <SortIcon order={this.state.order} /> : <Glyphicon glyph={"sort"} />}
                     </th>
                     <th onClick={this.handleSortByPriority}>
-                        Priority &nbsp; {this.state.sortByPriority ? <SortIcon sortDesc={this.state.sortDesc} /> : null}
+                        Priority &nbsp; {this.state.sortByPriority ? <SortIcon order={this.state.order} /> : <Glyphicon glyph={"sort"} />}
                     </th>
                     <th onClick={this.handleSortByStatus}>
-                        Status &nbsp; {this.state.sortByStatus ? <SortIcon sortDesc={this.state.sortDesc} /> : null}
+                        Status &nbsp; {this.state.sortByStatus ? <SortIcon order={this.state.order} /> : <Glyphicon glyph={"sort"} />}
                     </th>
                     <th onClick={this.handleSortReset}>[reset]</th>
                 </tr>
